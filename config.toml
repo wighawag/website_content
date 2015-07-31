@@ -1,0 +1,20 @@
+baseurl = "http://wighawag.com/"
+languageCode = "en-gb"
+title = "wighawag"
+
+copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+
+[permalinks]
+	blog = "/:section/:year/:month/:slug/" #add /:section if baseurl do not contain it
+	code = "/:filename/"
+	
+[author]
+    name = "wighawag"
+	
+[params]
+	sidebartitle = "wighawag"
+	sidebartagline = "Random thoughts and works about code"
+	DateForm = "Mon, Jan 2, 2006"
+	author = "wighawag"
+
+
