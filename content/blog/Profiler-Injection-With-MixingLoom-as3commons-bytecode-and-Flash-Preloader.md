@@ -5,8 +5,6 @@ type = "post"
 draft = true
 +++
 
-### Introduction ###
-
 Recently I discovered **MixingLoom** through [James Ward's article](http://www.jamesward.com/2011/04/26/introducing-mixing-loom-runtime-actionscript-bytecode-modification/), it is a library to ease the injection of code in swf. One usage of it is [Aspect Oriented Programming](http://en.wikipedia.org/wiki/Aspect-oriented_programming) to separate logging, analytics... from the actual application code by injecting the extra code (logging, analytics...)  into the swf after compilation (thanks to [as3commons-bytecode library](http://www.as3commons.org/as3-commons-bytecode/index.html) ). This way the extra code does not appear anywhere in the application source code which stay focused on what it should do.
 
 Here I ll show you how to inject profiler code to measure the speed of execution of particular functions. An xml file read at run time would be used to specify which function to profile (and to inject). It can be used for other purpose as well but since currently it does not handle arguments except for 1 string argument, it is quite limited.

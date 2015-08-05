@@ -5,8 +5,6 @@ title = "Hxcpp extern"
 type = "post"
 +++
 
-Introduction
-============
 To show the usefulness of [Haxe](http://haxe.org "Haxe Website") at my company I have been working with hxcpp to compile a demo to both native using a C++ engine and Flash using a library that match the C++ engine api.
 
 I chose to use the latest haxe/hxcpp version so I can use the new extern facility provided by hxcpp. This simplify the cpp/haxe integration and allow to manipulate cpp object directly. The help from [Hugh](http://gamehaxe.com/ "Hugh's website") was invaluable to get my demo working.
@@ -137,28 +135,34 @@ In order to do that we need to add some haxe specific C++ code :
 First we need to put some haxe initialization call in the c++ side :
 This require some declaration as you can see in the code:
 
-    extern "C" const char *hxRunLibrary();
-    extern "C" void hxcpp_set_top_of_stack();
+```cpp
+extern "C" const char *hxRunLibrary();
+extern "C" void hxcpp_set_top_of_stack();
+```
 
 then in the main we call these functions with checking for error:
 
-    hxcpp_set_top_of_stack();
-    const char *err = hxRunLibrary();
-    if (err) {
-      // Unhandled exceptions ...
-      fprintf(stderr,"Error %s\n", err );
-      return -1;
-    }
+```cpp
+hxcpp_set_top_of_stack();
+const char *err = hxRunLibrary();
+if (err) {
+  // Unhandled exceptions ...
+  fprintf(stderr,"Error %s\n", err );
+  return -1;
+}
+```
 
 This is pretty straight forward. in your engine if you do not control the main you can put it in your init function for example
 
 The second thing to do is to declare the haxe App static function interface :
 
-    class App_obj{
-      public:
-        static int init(int value);
-        static int update(::cpp::Pointer<Rectangle> rect);
-    };
+```cpp
+class App_obj{
+  public:
+	static int init(int value);
+	static int update(::cpp::Pointer<Rectangle> rect);
+};
+```
 
 This directly map to the haxe class App defined as shown here :
 
@@ -176,14 +180,16 @@ Please note that hxcpp append `"_obj"` to every haxe class generated to cpp. Tha
 
 Since in the App_obj declaration use the ::cpp::Pointer type we need to declare it as well :
 
-    namespace cpp{
-      template<typename T>
-      class Pointer{
-        public:
-          T *ptr;
-          inline Pointer(const T *inValue) : ptr((T*)inValue) { }
-      };
-    }
+```cpp
+namespace cpp{
+  template<typename T>
+  class Pointer{
+	public:
+	  T *ptr;
+	  inline Pointer(const T *inValue) : ptr((T*)inValue) { }
+  };
+}
+```
 
 There is more to this type but we just declare what we are using.
 
@@ -194,8 +200,10 @@ Once you have the declaration setup, you can make your call:
 
 Here I did not bother to make a proper engine and i just call init() followed by update on only once but this should be pretty straightforward to extend:
 
-    ::App_obj::init(1);
-    ::App_obj::update(::cpp::Pointer<Rectangle>(rect));
+```cpp
+::App_obj::init(1);
+::App_obj::update(::cpp::Pointer<Rectangle>(rect));
+```
 
 This is pretty much it for having your haxe code run from the c++ engine
 
@@ -207,13 +215,15 @@ The way it works is similar to other targets except there is few gotchas.
 
 You declare your extern as usual with some extera metadata:
 
-    @:structAccess
-    @:include("Rectangle.h")
-    @:native("Rectangle")
-    extern class Rectangle{
-        public function set_values(w : Int, h : Int) : Void;
-        public function area() : Int;
-    }
+```haxe
+@:structAccess
+@:include("Rectangle.h")
+@:native("Rectangle")
+extern class Rectangle{
+	public function set_values(w : Int, h : Int) : Void;
+	public function area() : Int;
+}
+```
 
 @:structAccess need to be there so that hxcpp use the "." operator instead of e the "->" operator
 
@@ -226,17 +236,19 @@ the @:native tell hxcpp the name (including namespace if provided) of the class.
 
 I also added an Include.hx file which add some information to hxcpp so it can find the header files included:
 
-    @:buildXml("
-    <files id='haxe'>
-      <compilerflag value='-I../cpp/include'/>
-    </files>
-    <files id='__lib__'>
-      <compilerflag value='-I../cpp/include'/>
-    </files>
-    ")
-    @:keep class Include{
+```haxe
+@:buildXml("
+<files id='haxe'>
+  <compilerflag value='-I../cpp/include'/>
+</files>
+<files id='__lib__'>
+  <compilerflag value='-I../cpp/include'/>
+</files>
+")
+@:keep class Include{
 
-    }
+}
+```
 
 both `haxe` and `__lib__` section are required. the `__lib__` is used as we compile it to a static library. I could not find documentation about it though.
 
@@ -254,8 +266,10 @@ When you have a cpp.Pointer in haxe code, if you access the value/ref member and
 
 If you take a look at App.hx you can see :
 
-    rect.ref.set_values(4,200);
-    instance.update(rect.ref.area());
+```haxe
+rect.ref.set_values(4,200);
+instance.update(rect.ref.area());
+```
 
 The ref is used so the actual rect is modified and its area method called apropriately.
 
@@ -263,10 +277,11 @@ hxcpp could probably improve on this. Or a macro could be done to generate some 
 
 To be clear the following will set values on a copy and thus the area passed to function will not be the expected one:
 
-    var actualRect = rect.ref;
-    actualRect.set_values(4,200);
-    instance.update(rect.ref.area ());
-   
+```haxe
+var actualRect = rect.ref;
+actualRect.set_values(4,200);
+instance.update(rect.ref.area ());
+```
 
 Conclusion
 =========
