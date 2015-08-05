@@ -2,7 +2,7 @@
 date = "2012-12-31T16:26:02+01:00"
 title = "NME Stage3D support"
 type = "post"
-draft = true
+slug = "NME-Stage3D-support"
 +++
 
 Hi everybody, long time I did not write a post,
@@ -81,7 +81,7 @@ I plan to continue working on this Stage3D port and I would be very glad if it c
 
 I posted a test here  [https://github.com/wighawag/NMEStage3DTest](https://github.com/wighawag/NMEStage3DTest)
 
-<iframe width="500" height="500" src="http://www.wighawag.com/blog/content/NMEStage3DTest.html"></iframe>
+<iframe width="500" height="500" src="/blog/content/NMEStage3DTest.html"></iframe>
 
 It should work in Flash without my new version of NME
 And the patch provided [here](https://raw.github.com/wighawag/NMEStage3DTest/master/stage3d.patch) should make it work in cpp (tested only on Linux 64 bit by the way)

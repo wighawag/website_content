@@ -1,4 +1,4 @@
-baseurl = "http://blog.wighawag.com/"
+baseurl = "http://wighawag.com/"
 languageCode = "en-gb"
 title = "wighawag"
 
@@ -23,6 +23,6 @@ disqusShortname = "wighawag"
 	twitterName = "wighawag"
 	githubName = "wighawag"
 	description = "Random thoughts and works about code"
-	#google_analytics = "UA-xxxxxx-xx"
+	google_analytics = "UA-23785020-1"
 
 

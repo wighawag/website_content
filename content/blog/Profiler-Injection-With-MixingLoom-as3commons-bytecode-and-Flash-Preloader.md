@@ -2,7 +2,7 @@
 date = "2011-06-05T16:26:20+01:00"
 title = "Profiler Injection With MixingLoom as3commons bytecode and Flash Preloader"
 type = "post"
-draft = true
+slug = "Profiler-Injection-With-MixingLoom-as3commons-bytecode-and-Flash-Preloader"
 +++
 
 Recently I discovered **MixingLoom** through [James Ward's article](http://www.jamesward.com/2011/04/26/introducing-mixing-loom-runtime-actionscript-bytecode-modification/), it is a library to ease the injection of code in swf. One usage of it is [Aspect Oriented Programming](http://en.wikipedia.org/wiki/Aspect-oriented_programming) to separate logging, analytics... from the actual application code by injecting the extra code (logging, analytics...)  into the swf after compilation (thanks to [as3commons-bytecode library](http://www.as3commons.org/as3-commons-bytecode/index.html) ). This way the extra code does not appear anywhere in the application source code which stay focused on what it should do.
@@ -142,7 +142,7 @@ By the way, since the code shown in this page is dynamically taken from the gith
 
 To show it works I created an example project at [github](https://github.com/wighawag/mixingloom-profiler-example)
 
-<iframe width="100%" height="100%" src="http://www.wighawag.com/blog/content/mixingloomprofilerexample.swf"></iframe>
+<iframe width="100%" height="100%" src="/blog/content/mixingloomprofilerexample.swf"></iframe>
 
 it has 4 button and 4 numeric stepper (from  [minimalcomps](https://github.com/wighawag/minimalcomps), actually a fork since there is issues with instance variables set at the class level , _maximum and _minimum in this case. I did not have time to investigate but it made me think that using mm.config preloader is not a very good idea even if it theorically allow you to profile any swf on the net.
 
