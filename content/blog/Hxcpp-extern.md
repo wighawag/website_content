@@ -2,7 +2,7 @@
 date = "2014-12-01T10:36:05+01:00"
 title = "Hxcpp extern"
 type = "post"
-slug = "Hxcpp-extern"
+url = "blog/2014/12/Hxcpp-extern/"
 +++
 
 To show the usefulness of [Haxe](http://haxe.org "Haxe Website") at my company I have been working with hxcpp to compile a demo to both native using a C++ engine and Flash using a library that match the C++ engine api.
