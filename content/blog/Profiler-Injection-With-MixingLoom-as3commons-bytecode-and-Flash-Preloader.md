@@ -2,7 +2,7 @@
 date = "2011-06-05T16:26:20+01:00"
 title = "Profiler Injection With MixingLoom as3commons bytecode and Flash Preloader"
 type = "post"
-slug = "Profiler-Injection-With-MixingLoom-as3commons-bytecode-and-Flash-Preloader"
+url = "blog/2011/06/Profiler-Injection-With-MixingLoom-as3commons-bytecode-and-Flash-Preloader/" #required to get upper case urls
 +++
 
 Recently I discovered **MixingLoom** through [James Ward's article](http://www.jamesward.com/2011/04/26/introducing-mixing-loom-runtime-actionscript-bytecode-modification/), it is a library to ease the injection of code in swf. One usage of it is [Aspect Oriented Programming](http://en.wikipedia.org/wiki/Aspect-oriented_programming) to separate logging, analytics... from the actual application code by injecting the extra code (logging, analytics...)  into the swf after compilation (thanks to [as3commons-bytecode library](http://www.as3commons.org/as3-commons-bytecode/index.html) ). This way the extra code does not appear anywhere in the application source code which stay focused on what it should do.
