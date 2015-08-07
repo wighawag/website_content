@@ -1,8 +1,10 @@
 +++
 date = "2012-12-31T16:26:02+01:00"
-title = "NME Stage3D support"
+title = "NME Stage3D"
 type = "post"
-url = "blog/2012/12/NME-Stage3D-support/" #required to get upper case urls
+aliases = [
+    "/blog/2012/12/NME-Stage3D-support"
+]
 +++
 
 Hi everybody, long time I did not write a post,

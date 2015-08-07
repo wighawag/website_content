@@ -1,8 +1,10 @@
 +++
 date = "2011-06-05T16:26:20+01:00"
-title = "Profiler Injection With MixingLoom as3commons bytecode and Flash Preloader"
+title = "Actionscript Profiler Runtime Code Injection"
 type = "post"
-url = "blog/2011/06/Profiler-Injection-With-MixingLoom-as3commons-bytecode-and-Flash-Preloader/" #required to get upper case urls
+aliases = [
+    "/blog/2011/06/Profiler-Injection-With-MixingLoom-as3commons-bytecode-and-Flash-Preloader"
+]
 +++
 
 Recently I discovered **MixingLoom** through [James Ward's article](http://www.jamesward.com/2011/04/26/introducing-mixing-loom-runtime-actionscript-bytecode-modification/), it is a library to ease the injection of code in swf. One usage of it is [Aspect Oriented Programming](http://en.wikipedia.org/wiki/Aspect-oriented_programming) to separate logging, analytics... from the actual application code by injecting the extra code (logging, analytics...)  into the swf after compilation (thanks to [as3commons-bytecode library](http://www.as3commons.org/as3-commons-bytecode/index.html) ). This way the extra code does not appear anywhere in the application source code which stay focused on what it should do.
@@ -18,7 +20,7 @@ Instead I used the built-in flash preloader, the one you specify through mm.conf
 
 This basically allow injection of code to any swf (whether it has been compiled by you or not). I had  some problem though making the profiler injection work when the swf is compiled in release mode. (see that later)
 
-here is the preloader abstract class I use : 
+here is the preloader abstract class I use :
 
 <iframe width="100%" height="100%" src="http://script-iframe.appspot.com/script?url=http://gist-it.appspot.com/github/wighawag/mixingloom-profiler/raw/master/src/com/wighawag/preloader/AS3AbstractPreloader.as"><br /></iframe>
 
@@ -29,7 +31,7 @@ This abstract preloader need to be extended so that it is able to inject code in
 
 The abstract preloader then add it to the stage.
 
-In fact the abstract preloader will also remove everything from the stage so that it start clean and does not have two application running at the same time. 
+In fact the abstract preloader will also remove everything from the stage so that it start clean and does not have two application running at the same time.
 
 Unfortunately, in many applications (since in most case, the main class is not supposed to be removed from stage) the main class has event listener registered with the stage which are not automatically removed when the main instance is removed from the stage. Because of that even if the main class is removed from stage the listener will keep the main class instance in memory and will be executed.
 
@@ -37,7 +39,7 @@ If you are the author of the application, you can simply unregister listener on 
 
 If you have no control over the code, then I do not know the solution, except maybe by analysing the swf bytecode to find listerner registration (a probably complex task) and unregister them.
 
-The problem come from the built-in preloader : as soon as the main application is loaded it is instantiated and added to stage. It seems we do not have a hook before that happened. 
+The problem come from the built-in preloader : as soon as the main application is loaded it is instantiated and added to stage. It seems we do not have a hook before that happened.
 
 If anyone has a solution for it let me know.
 
@@ -95,7 +97,7 @@ its constructor expect xml data (not a url since it does not deal with loading).
 
 the apply function is the main method and looks quite similar to the SampleXMLPatcher of James except that it look for every tag (making it slower but make it potentially work for realeased swf)
 
-Then for each class and for each of their instance it look whether their instance are specified as targets in the xml. 
+Then for each class and for each of their instance it look whether their instance are specified as targets in the xml.
 If so, it inject the source classes' methods (so in this case it will inject the **com.wighawag.profiler.TimeProfiler** methods "start" and "finish" )
 
 
@@ -115,7 +117,7 @@ As you can see it follows the same template as the MixingLoom example: it does n
 then it inject the first  MethodCall with the argument being the function being injected (so that the profile function knwo which function is beign measured)
 
 
-Then it incrase the maxStack value so that even if the next method call is between a push opcode and a return opcode, the push opcode created by the method call will not exceed the maxStack (if it does, the flash player throw a Verify Error). 
+Then it incrase the maxStack value so that even if the next method call is between a push opcode and a return opcode, the push opcode created by the method call will not exceed the maxStack (if it does, the flash player throw a Verify Error).
 It is probably possible instead of injecting the methodcall just before the return to detect where the last push opcode (used by the return opcode) is located and inject the methodcall just before it but it was easier to just increase the maxStack.
 
 
@@ -136,7 +138,7 @@ I checked the as3commons-bytecode code and it correctly add the string to the co
 
 In debug everything is fine
 
-the code is located at [github](https://github.com/wighawag/mixingloom-profiler) 
+the code is located at [github](https://github.com/wighawag/mixingloom-profiler)
 By the way, since the code shown in this page is dynamically taken from the github code, it is up to date
 
 
@@ -183,7 +185,6 @@ the code:
 <iframe width="100%" height="100%" src="http://script-iframe.appspot.com/script?url=http://gist-it.appspot.com/github/wighawag/mixingloom-profiler-example/raw/master/src/Main.as"><br /></iframe>
 
 
-The post have been longer (both in time to write and text length) than I thought and I hope it is clear enough. 
+The post have been longer (both in time to write and text length) than I thought and I hope it is clear enough.
 
 Thank you for reading! Do not hesitate to leave comments
-

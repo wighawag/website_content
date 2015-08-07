@@ -9,12 +9,12 @@ Paginate = 10
 disqusShortname = "wighawag"
 
 [permalinks]
-	blog = "/:section/:year/:month/:slug/" #add /:section if baseurl do not contain it
-	code = "/:filename/"
-	
+	blog = "/:section/:year/:month/:filename/" #add /:section if baseurl do not contain it
+	#code = "/:filename/"
+
 [author]
     name = "wighawag"
-	
+
 [params]
 	#sidebartitle = "wighawag"
 	#sidebartagline = "Random thoughts and works about code"
@@ -24,5 +24,3 @@ disqusShortname = "wighawag"
 	githubName = "wighawag"
 	description = "Random thoughts and works about code"
 	google_analytics = "UA-23785020-1"
-
-

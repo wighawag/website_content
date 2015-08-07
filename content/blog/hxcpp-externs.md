@@ -1,8 +1,10 @@
 +++
 date = "2014-12-01T10:36:05+01:00"
-title = "Hxcpp extern"
+title = "Hxcpp externs"
 type = "post"
-url = "blog/2014/12/Hxcpp-extern/" #required to get upper case urls
+aliases = [
+	"/blog/2014/12/Hxcpp-extern"
+]
 +++
 
 To show the usefulness of [Haxe](http://haxe.org "Haxe Website") at my company I have been working with hxcpp to compile a demo to both native using a C++ engine and Flash using a library that match the C++ engine api.
@@ -20,7 +22,7 @@ The C++ engine I am working with takes full control of the main entry point and 
 There are quite few engine that take control of the main entry point like that and this is due to the way each platform manage an app (IOS/Android...). So hopefully this article might help you integrate haxe with your engine.
 In any case most of the thing I will talk about it here apply as well to other projects where hxcpp generate the app directly (you can skip the C++ to Haxe section as you might not need it at all in that case though).
 
-For this article I cannot show any of the engine code but basically to create a game in this engine you have the possibility to implement the required virtual function from a specific C++ abstract class. These functions are the entry points to your game specific code. There is a function for init(), one for update() and some more for events like touch events and resize and few other stuff. From there you can instantiate all the required cpp classes or services ... 
+For this article I cannot show any of the engine code but basically to create a game in this engine you have the possibility to implement the required virtual function from a specific C++ abstract class. These functions are the entry points to your game specific code. There is a function for init(), one for update() and some more for events like touch events and resize and few other stuff. From there you can instantiate all the required cpp classes or services ...
 
 Since I cannot show you the C++ engine code I set up some c++ code that act in a similar fashion. I did not bother creating an abstract class but as you can guess it will work as well with such setup.
 
